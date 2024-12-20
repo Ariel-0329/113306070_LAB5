@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grades Table</title>
+    <link rel="stylesheet" href="113306070_LAB5.css">
+</head>
+<body>
+    <div class="input-container">
+        <input type="number" id="math" placeholder="Math" min="0" max="100">
+        <input type="number" id="english" placeholder="English" min="0" max="100">
+        <button onclick="addGrade()">Submit</button>
+    </div>
+    <table id="gradesTable">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Math</th>
+                <th>English</th>
+                <th>Average</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Initial rows can be added here if needed -->
+        </tbody>
+        <tfoot>
+            <tr>
+                <td>Average</td>
+                <td id="mathAverage">0.00</td>
+                <td id="englishAverage">0.00</td>
+                <td id="overallAverage">0.00</td>
+            </tr>
+        </tfoot>
+    </table>
+    <script>
+    	function addGrade() {
+    const mathInput = document.getElementById('math').value;
+    const englishInput = document.getElementById('english').value;
+
+    if (mathInput === '' || englishInput === '') {
+        alert('Please enter both Math and English grades.');
+        return;
+    }
+
+    const mathGrade = parseFloat(mathInput);
+    const englishGrade = parseFloat(englishInput);
+    const averageGrade = ((mathGrade + englishGrade) / 2).toFixed(2);
+
+    const table = document.getElementById('gradesTable').getElementsByTagName('tbody')[0];
+    const newRow = table.insertRow();
+    const rowCount = table.rows.length;
+
+    newRow.insertCell(0).innerText = rowCount;
+    newRow.insertCell(1).innerText = mathGrade;
+    newRow.insertCell(2).innerText = englishGrade;
+    newRow.insertCell(3).innerText = averageGrade;
+
+    updateAverages();
+}
+
+function updateAverages() {
+    const table = document.getElementById('gradesTable');
+    const rows = table.getElementsByTagName('tbody')[0].rows;
+    let totalMath = 0, totalEnglish = 0, totalAverage = 0;
+
+    for (let i = 0; i < rows.length; i++) {
+        totalMath += parseFloat(rows[i].cells[1].innerText);
+        totalEnglish += parseFloat(rows[i].cells[2].innerText);
+        totalAverage += parseFloat(rows[i].cells[3].innerText);
+    }
+
+    const mathAverage = (totalMath / rows.length).toFixed(2);
+    const englishAverage = (totalEnglish / rows.length).toFixed(2);
+    const overallAverage = (totalAverage / rows.length).toFixed(2);
+
+    document.getElementById('mathAverage').innerText = mathAverage;
+    document.getElementById('englishAverage').innerText = englishAverage;
+    document.getElementById('overallAverage').innerText = overallAverage;
+}
+
+    	
+    </script>
+</body>
+</html>

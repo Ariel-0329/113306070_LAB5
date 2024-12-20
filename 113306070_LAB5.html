@@ -34,17 +34,19 @@
         </tfoot>
     </table>
     <script>
-    	function addGrade() {
-    const mathInput = document.getElementById('math').value;
-    const englishInput = document.getElementById('english').value;
+function addGrade() {
+    const mathInput = document.getElementById('math');
+    const englishInput = document.getElementById('english');
+    const mathValue = mathInput.value;
+    const englishValue = englishInput.value;
 
-    if (mathInput === '' || englishInput === '') {
+    if (mathValue === '' || englishValue === '') {
         alert('Please enter both Math and English grades.');
         return;
     }
 
-    const mathGrade = parseFloat(mathInput);
-    const englishGrade = parseFloat(englishInput);
+    const mathGrade = parseFloat(mathValue);
+    const englishGrade = parseFloat(englishValue);
     const averageGrade = ((mathGrade + englishGrade) / 2).toFixed(2);
 
     const table = document.getElementById('gradesTable').getElementsByTagName('tbody')[0];
@@ -55,6 +57,10 @@
     newRow.insertCell(1).innerText = mathGrade;
     newRow.insertCell(2).innerText = englishGrade;
     newRow.insertCell(3).innerText = averageGrade;
+
+    // Clear input fields
+    mathInput.value = '';
+    englishInput.value = '';
 
     updateAverages();
 }
